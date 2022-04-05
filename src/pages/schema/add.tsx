@@ -206,7 +206,7 @@ class AddSchema extends Component<IProps, IState> {
             }))
         }   
     }
-    submitButtonClick() {
+    submitButtonClick = () =>{
 
     }
 
@@ -218,13 +218,14 @@ class AddSchema extends Component<IProps, IState> {
                 visible={this.props.visible}
                 onCancel={this.cancel}
                 footer={null}
+                width={ 1000 }
             >
 				<Form
-					labelCol={{ span: 5 }}
-					wrapperCol={{ span: 19 }}
+					labelCol={{ span: 3 }}
+					wrapperCol={{ span: 21 }}
 					name="form-demo"
 					autoComplete="off"
-					style={{ width: 300, background: '#fff', padding: 10, margin: 10 }}
+					style={{ background: '#fff', padding: 10, margin: 10 }}
 				>
 					<Form.Item label='图名:' name={'graph_name'} rules={[{
                         type: 'string',
@@ -234,8 +235,23 @@ class AddSchema extends Component<IProps, IState> {
                             }
                             return Promise.resolve()
                         }
-                    }]}>   
-					</Form.Item>	
+                    }]}>
+                        <Input onChange={ this.onGraphNameChange }></Input>   
+					</Form.Item>
+                    <Form.Item>
+                        <div style={{ width: '100%', textAlign: 'center' }}>
+                            <Button
+                                type="primary"
+                                onClick={ this.submitButtonClick }
+                                style={{ marginRight: 15 }}
+                            >提交</Button>
+                            <Button
+                                type="primary"
+                                onClick={ this.cancel }
+                            >关闭</Button>
+                        </div>
+                       
+                    </Form.Item>	
 				</Form>
                 {/* <div className='c-form-demo' style={{
                     width: '1000px', minHeight: 200,borderWidth: '1px', borderStyle: 'solid',
