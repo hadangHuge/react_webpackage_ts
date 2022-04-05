@@ -55,7 +55,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
         </td>
     );
 };
-class Schema extends Component<any, IState> {
+export default class Schema extends Component<any, IState> {
     constructor(props: any) {
         super(props)
         this.state = {
@@ -157,7 +157,7 @@ class Schema extends Component<any, IState> {
                     scroll={{
                         scrollToFirstRowOnChange: true,
                         x: 'max-content',
-                        y: 800
+                        y: 'max-content'
                     }}
                     rowClassName="editable-row"
                     pagination={{
@@ -173,5 +173,3 @@ class Schema extends Component<any, IState> {
         );
     }
 }
-
-export default Schema

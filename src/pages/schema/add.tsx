@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Card,Form,Button,Input,message, Modal} from "antd";
 
-
 interface IState {
     formData: FormData
 }
@@ -34,7 +33,7 @@ interface IProps {
     callback: () => void
 }
 
-class AddSchema extends Component<IProps, IState> {
+export default class AddSchema extends Component<IProps, IState> {
     constructor(props: any) {
         super(props)
         this.state = {
@@ -212,20 +211,69 @@ class AddSchema extends Component<IProps, IState> {
 
 
     render(): React.ReactNode {
+        const edgeSchemaEle = this.state.formData.edge_schema.map((item, index) => {
+            return (
+                <div style={{ 'marginBottom': 10, display: 'flex'}} key={index + 'first'}>
+                    <label style={{ width: 50, textAlign: 'right',paddingTop: 8, fontWeight: 700 }}>名称：</label> 
+                    <Input
+                        style={{ width: 200, marginRight: 10 }}
+                        onChange={(e) => this.onEdgeBaseValueChange(e, index, 'schema_name')}
+                    />
+                
+                    <Button
+                        type="primary" style={{ marginRight: 10 }}
+                        onClick={() => this.addButtonClick(index, 'edge')}
+                        disabled={ index !== this.state.formData.edge_schema.length - 1 }
+                    >添加</Button>
+                    {
+                        (index > 0 && (index === this.state.formData.vertex_schema.length - 1))
+                        && <Button
+                            type="primary"
+                            // onClick={() => this.removeButtonClick(item, index, 'edge')}
+                        >删除</Button>
+                    }
+                </div>
+            )
+        })
+
+        const vertexSchemaEle = this.state.formData.vertex_schema.map((item, index) => {
+            return (
+                <div style={{ 'marginBottom': 10, display: 'flex'}} key={index + 'first'}>
+                    <label style={{ width: 50, textAlign: 'right',paddingTop: 8, fontWeight: 700 }}>名称：</label> 
+                    <Input
+                        style={{ width: 200, marginRight: 10 }}
+                        onChange={(e) => this.onEdgeBaseValueChange(e, index, 'schema_name')}
+                    />
+                
+                    <Button
+                        type="primary" style={{ marginRight: 10 }}
+                        onClick={() => this.addButtonClick(index, 'edge')}
+                        disabled={ index !== this.state.formData.edge_schema.length - 1 }
+                    >添加</Button>
+                    {
+                        (index > 0 && (index === this.state.formData.vertex_schema.length - 1))
+                        && <Button
+                            type="primary"
+                            // onClick={() => this.removeButtonClick(item, index, 'edge')}
+                        >删除</Button>
+                    }
+                </div>
+            )
+        })
         return(
             <Modal
                 title="添加"
                 visible={this.props.visible}
                 onCancel={this.cancel}
                 footer={null}
-                width={ 1000 }
+                width={ 1300 }
             >
 				<Form
-					labelCol={{ span: 3 }}
-					wrapperCol={{ span: 21 }}
+					labelCol={{ span: 2 }}
+					wrapperCol={{ span: 22 }}
 					name="form-demo"
 					autoComplete="off"
-					style={{ background: '#fff', padding: 10, margin: 10 }}
+					style={{ background: '#fff', padding: 10, margin: 10, width: '50%' }}
 				>
 					<Form.Item label='图名:' name={'graph_name'} rules={[{
                         type: 'string',
@@ -237,101 +285,28 @@ class AddSchema extends Component<IProps, IState> {
                         }
                     }]}>
                         <Input onChange={ this.onGraphNameChange }></Input>   
-					</Form.Item>
-                    <Form.Item>
-                        <div style={{ width: '100%', textAlign: 'center' }}>
-                            <Button
-                                type="primary"
-                                onClick={ this.submitButtonClick }
-                                style={{ marginRight: 15 }}
-                            >提交</Button>
-                            <Button
-                                type="primary"
-                                onClick={ this.cancel }
-                            >关闭</Button>
-                        </div>
-                       
-                    </Form.Item>	
+					</Form.Item>	
 				</Form>
-                {/* <div className='c-form-demo' style={{
-                    width: '1000px', minHeight: 200,borderWidth: '1px', borderStyle: 'solid',
-                    borderColor: '#ececec'
-                }}>
-                <div style={{ width: '100%', borderColor: '#fff' }}>
-                    
-                </div>
-                <div style={{ 
-                    height: 200, overflowY: 'auto', width: 1000, boxSizing: 'border-box',display: 'flex', flexWrap: 'wrap',
-                    marginLeft: 10
-                }}>
-                    <Card style={{ width: 480, minWidth: 400, height: 200, overflowY: 'auto', marginRight: 10 }}>
-                        {
-                            this.state.formData.edge_schema.map((item, index) => {
-                                return (
-                                    <div style={{ 'marginBottom': 10, display: 'flex'}} key={index + 'first'}>
-                                        <label style={{ width: 50, textAlign: 'right',paddingTop: 8, fontWeight: 700 }}>名称：</label> 
-                                        <Input
-                                            style={{ width: 200, marginRight: 10 }}
-                                            onChange={(e) => this.onEdgeBaseValueChange(e, index, 'schema_name')}
-                                        />
-                                    
-                                        <Button
-                                            type="primary" style={{ marginRight: 10 }}
-                                            onClick={() => this.addButtonClick(index, 'edge')}
-                                            disabled={ index !== this.state.formData.edge_schema.length - 1 }
-                                        >添加</Button>
-                                        {
-                                            (index > 0 && (index === this.state.formData.vertex_schema.length - 1))
-                                            && <Button
-                                                type="primary"
-                                                onClick={() => this.removeButtonClick(item, index, 'edge')}
-                                            >删除</Button>
-                                        }
-                                    </div>
-                                )
-                            })
-                        }
+                <div style={{ height: 500, overflowY: 'auto', width: '100%', boxSizing: 'border-box', display: "flex", flexWrap: 'wrap' }}>
+                    <Card style={{ width: '49%', minWidth: 400, height: 500, overflowY: 'auto', marginRight: 10 }}>
+                        { edgeSchemaEle }
                     </Card>
-                    <Card style={{ width: 480, minWidth: 400, height: 200, overflowY: 'auto'}}>
-                        {
-                            this.state.formData.vertex_schema.map((item, index) => {
-                                return(
-                                    <div style={{ 'marginBottom': 10, display: 'flex'}}  key={index + 'last'}>
-                                        <label
-                                            style={{ width: 50, textAlign: 'right',paddingTop: 8, fontWeight: 700 }}
-                                        >名称：</label> 
-                                        <Input
-                                            style={{ width: 200, marginRight: 10 }}
-                                            onChange={(e) => this.onVertexBaseValueChange(e, index, 'schema_name')}
-                                        />
-                                        <Button
-                                            type="primary"  style={{ marginRight: 10 }}
-                                            onClick={ () => this.addButtonClick(index, 'vertex')}
-                                            disabled={ index !== this.state.formData.vertex_schema.length - 1 }
-                                        >添加</Button>
-                                        {
-                                            (index > 0 && index === this.state.formData.vertex_schema.length - 1)
-                                            && <Button
-                                                type="primary"
-                                                onClick={() => this.removeButtonClick(item, index, 'vertex')}
-                                            >删除</Button>
-                                        }
-                                    </div>
-                                )
-                            })
-                        }
-                    </Card>   
+                    <Card style={{ width: '49%', minWidth: 400, height: 500, overflowY: 'auto', marginRight: 10 }}>
+                        { vertexSchemaEle }
+                    </Card>
                 </div>
-                    <div className="button-Submit">
-                        <Button
-                            type="primary"
-                            onClick={ this.submitButtonClick }
-                        >提交</Button>
-                    </div>
-                </div> */}
+                <div style={{ width: '100%', textAlign: 'center', marginTop: 15 }}>
+                    <Button
+                        type="primary"
+                        onClick={ this.submitButtonClick }
+                        style={{ marginRight: 15 }}
+                    >提交</Button>
+                    <Button
+                        type="primary"
+                        onClick={ this.cancel }
+                    >关闭</Button>
+                </div>
             </Modal>
         )
     }
 }
-
-export default AddSchema;
