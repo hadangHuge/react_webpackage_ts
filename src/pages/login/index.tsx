@@ -24,7 +24,7 @@ interface IState {
 }
 
 class Schema extends Component<any, IState> {
-    constructor(props) {
+    constructor(props: any) {
         super(props)
         this.state = {
             tableData: [
@@ -53,39 +53,37 @@ class Schema extends Component<any, IState> {
     // 渲染页面
     render(): React.ReactNode {
         return (
-            <div>111</div>
-            // <Table
-            //     loading={this.state.laoding}
-            //     dataSource={ this.state.tableData }
-            //     rowKey={'id'}
-            //     pagination={{
-            //         position: 'bottom',
-            //         total: this.state.total,
-            //         pageSize: this.state.pageSize,
-            //         showSizeChanger: false
-            //     }}
-            //     onChange={ this.onChange }
-            // >
-            //     <Table.Column
-            //         title={'ID'}
-            //         dataIndex={'id'}
-            //     />
-            //     <Table.Column
-            //         title={'图名'}
-            //         dataIndex={"graph_name"}
-            //     />
-            //     <Table.Column
-            //         title={ '操作' }
-            //         render={ (text: any, row: ISchema, index: number ) => {
-            //             return (
-            //                 <div>
-            //                     <Button type="primary">编辑</Button>
-            //                     <Button type="danger">删除</Button>
-            //                 </div>
-            //             ) 
-            //         }}
-            //     />  
-            // </Table>
+            <Table
+                loading={this.state.laoding}
+                dataSource={ this.state.tableData }
+                rowKey={'id'}
+                pagination={{
+                    total: this.state.total,
+                    pageSize: this.state.pageSize,
+                    showSizeChanger: false
+                }}
+                onChange={ this.onChange }
+            >
+                <Table.Column
+                    title={'ID'}
+                    dataIndex={'id'}
+                />
+                <Table.Column
+                    title={'图名'}
+                    dataIndex={"graph_name"}
+                />
+                <Table.Column
+                    title={ '操作' }
+                    render={ (text: any, row: ISchema, index: number ) => {
+                        return (
+                            <div>
+                                <Button type="primary">编辑</Button>
+                                <Button type="dashed">删除</Button>
+                            </div>
+                        ) 
+                    }}
+                />  
+            </Table>
         )
     }
 } 
