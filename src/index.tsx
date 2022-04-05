@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App'
+import Schema from './modules/Schema'
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<Schema />, document.getElementById('root'));
