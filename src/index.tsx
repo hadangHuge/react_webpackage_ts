@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App'
-import 'antd/dist/antd.css';
-import Schema from './views/Schema/index'
+import Schema from './modules/Schema'
 
 ReactDOM.render(<Schema />, document.getElementById('root'));

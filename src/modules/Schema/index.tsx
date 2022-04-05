@@ -73,6 +73,7 @@ class Schema extends Component {
 
     onOneEdgeMiddleValueChange = (e, perIndex, index) => {
         let value = e.target.value
+<<<<<<< HEAD
         const { edge_schema } = this.state.formData
         const { middles } = edge_schema[perIndex]
         middles[index] = value
@@ -81,6 +82,20 @@ class Schema extends Component {
             formData: {
                 ...state.formData,
                 edge_schema: [...edge_schema]
+=======
+        let edge_schema1 = this.state.formData.edge_schema.map((item, mapIdnex) => {
+            if(mapIdnex === perIndex) {
+                item.middles = item.middles.map((row, mIndex) => {
+                    return (mIndex === index ) ? (row = value) : row
+                })
+            }
+            return item
+        })
+        this.setState((state) => ({
+            formData: {
+                ...state.formData,
+                edge_schema: [...edge_schema1]
+>>>>>>> 533e0aecdcc5a287021174d0e222883f7e0c144d
             }
         }))
     }
@@ -88,6 +103,7 @@ class Schema extends Component {
     onOneAttrValueChange = (e, schemaType, perIndex, index, type) => {
         let value = e.target.value
         const { edge_schema, vertex_schema } = this.state.formData
+<<<<<<< HEAD
         const { attrs } = (schemaType == 'edge') ? edge_schema[perIndex] : vertex_schema[perIndex]
         if(type = 'name') {
             attrs[index].name = value
@@ -98,10 +114,46 @@ class Schema extends Component {
             edge_schema[perIndex].attrs = attrs
         } else {    
             vertex_schema[perIndex].attrs = attrs
+=======
+        let e_schema, v_schema
+        if(schemaType == 'edge') {
+            e_schema = edge_schema.map((item, eIndex) => {
+                if(perIndex === eIndex) {
+                    item.attrs = item.attrs.map((aItem, aIndex) => {
+                        if(aIndex === index) {
+                            if(type = 'name') {
+                                aItem.name = value
+                            } else {
+                                aItem.type = value
+                            }
+                        }
+                        return aItem
+                    })
+                }
+                return item
+            })
+        } else {
+            v_schema = v_schema.map((item, vIndex) => {
+                if(perIndex === vIndex) {
+                    item.attrs = item.attrs.map((aItem, aIndex) => {
+                        if(aIndex === index) {
+                            if(type = 'name') {
+                                aItem.name = value
+                            } else {
+                                aItem.type = value
+                            }
+                        }
+                        return aItem
+                    })
+                }
+                return item
+            })
+>>>>>>> 533e0aecdcc5a287021174d0e222883f7e0c144d
         }
         this.setState((state) => ({
             formData: {
                 ...state.formData,
+<<<<<<< HEAD
                 edge_schema: [...edge_schema],
                 vertex_schema: [...vertex_schema]
             }
@@ -119,6 +171,10 @@ class Schema extends Component {
                         
                     }
                 })
+=======
+                edge_schema: [...e_schema],
+                vertex_schema: [...v_schema]
+>>>>>>> 533e0aecdcc5a287021174d0e222883f7e0c144d
             }
         }))
     }
@@ -220,6 +276,17 @@ class Schema extends Component {
 
     submitButtonClick = () => {
         console.log('submit...')
+<<<<<<< HEAD
+=======
+        let arr:number[] = [1, 2, 3, 4, 5]
+        let arr1 = arr.map((item, aIndex) => {
+            if (aIndex % 2 === 0) {
+                return item + 100
+            }
+            return item
+        })
+        console.log(arr1)
+>>>>>>> 533e0aecdcc5a287021174d0e222883f7e0c144d
         const { graph_name } = this.state.formData;
         // 下面需要校验的
         if(!graph_name) {
